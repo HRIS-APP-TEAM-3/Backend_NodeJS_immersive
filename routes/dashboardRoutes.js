@@ -5,7 +5,7 @@ const getUserIdMiddleware = require("../middlewares/getUserIdMiddleware.js");
 
 router.use(getUserIdMiddleware);
 router.get("/", dashboardController.verifyUser, (req, res) => {
-    return res.json({Status: "Success", role: req.role, id: req.id})
+    return res.json({Status: "Success", role: req.role, userId: req.userId, divisionId: req.divisionId})
 });
 
 
