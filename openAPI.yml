@@ -1,0 +1,75 @@
+openapi: 3.0.2
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /reimburse:
+    get:
+      summary: Get all reimbursements
+      description: Retrieve a list of reimbursements for the authenticated user.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Data reimburse ditemukan."
+                data:
+                  - _id: ObjectId("5fbeb970eadb3457d49a27a4")
+                    user_id:
+                      - benefit_name: Biaya Berobat
+                        notes: Resep Dokter
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 200000.00
+                        paid_amount: 0.00
+                        file_name: medical_receipt.pdf
+                      - benefit_name: Biaya Transport
+                        notes: Perjalanan Dinas
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 350000.00
+                        paid_amount: 350000.00
+                        file_name: travel_receipt.pdf
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+components:
+  schemas:
+    Reimbursement:
+      type: object
+      properties:
+        user_id:
+          type: string
+        reimbursements:
+          type: array
+          items:
+            type: object
+            properties:
+              benefit_name:
+                type: string
+              notes:
+                type: string
+              lead_approval:
+                type: boolean
+              hr_approval:
+                type: boolean
+              request_amount:
+                type: number
+              paid_amount:
+                type: number
+              file_name:
+                type: string
