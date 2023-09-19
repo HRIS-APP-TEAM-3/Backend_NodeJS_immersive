@@ -2,8 +2,8 @@ const Reimburse = require("../models/reimburseModel");
 
 exports.getAllReimburse = async (req, res) => {
   try {
-    const reimburses = await Reimburse.find({ user_id: req.user_id });
-    if (reimburses.reimbursements.length > 0) {
+    const reimburses = await Reimburse.findOne({ user_id: req.user_id });
+    if (reimburses) {
       res.status(200).json({
         message: "Data reimburse ditemukan.",
         data: reimburses.reimbursements,
@@ -12,6 +12,7 @@ exports.getAllReimburse = async (req, res) => {
       res.status(400).json({ message: "Data reimburse belum ada" });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Ada error saat melakukan proses" });
   }
 };
