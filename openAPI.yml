@@ -47,6 +47,54 @@ paths:
           description: Bad request
         "500":
           description: Internal server error
+    post:
+      summary: Create a new reimbursement
+      description: Create a new reimbursement for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reimbursement" # Reference to your schema
+            example: 
+              user_id: "4"
+              reimbursements:
+                - benefit_name: "Donasi Kamp Adul Hatler"
+                  notes: "Belajar kelas seni agar berhasil"
+                  lead_approval: true
+                  hr_approval: true
+                  request_amount: 200000.00
+                  paid_amount: 0.00
+                  file_name: "medical_receipt.pdf"
+      responses:
+        "201":
+          description: Successful creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    $ref: "#/components/schemas/Reimbursement" # Reference to your schema
+              example:
+                message: "Reimbursement created successfully"
+                data:
+                  user_id: "3"
+                  reimbursements:
+                    - benefit_name: "Biaya Tank"
+                      notes: "Panzer"
+                      lead_approval: true
+                      hr_approval: true
+                      request_amount: 200000.00
+                      paid_amount: 0.00
+                      file_name: "medical_receipt.pdf"
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
 components:
   schemas:
     Reimbursement:
