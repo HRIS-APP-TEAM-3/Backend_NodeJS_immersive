@@ -3,10 +3,11 @@ const Reimburse = require("../models/reimburseModel");
 exports.getAllReimburse = async (req, res) => {
   try {
     const reimburses = await Reimburse.find({ user_id: req.user_id });
-    if (reimburses.length > 0) {
-      res
-        .status(200)
-        .json({ message: "Data reimburse ditemukan.", data: reimburses });
+    if (reimburses.reimbursements.length > 0) {
+      res.status(200).json({
+        message: "Data reimburse ditemukan.",
+        data: reimburses.reimbursements,
+      });
     } else {
       res.status(400).json({ message: "Data reimburse belum ada" });
     }
@@ -16,18 +17,21 @@ exports.getAllReimburse = async (req, res) => {
 };
 
 exports.addReimburse = async (req, res) => {
+  console.log("tes");
   try {
     const existingReimburse = await Reimburse.findOne({ user_id: req.user_id });
     if (existingReimburse) {
-      // Jika, add the new reimbursement to the existing user
+      // Jika sudah pernah mebuat, maka akan menambahkan data reimburse ke data user
       existingReimburse.reimbursements.push(req.body);
       await existingReimburse.save();
       res.status(201).json({
-        message: "Pembuatan reimburse berhasil",
+        message: "Penambahan reimburse berhasil",
         data: existingReimburse,
       });
     } else {
-      const newReimburse = await Reimburse.create(req.body);
+      const newReimburse = await Reimburse.create({ user_id: req.user_id });
+      newReimburse.reimbursements.push(req.body);
+      await newReimburse.save();
       res
         .status(201)
         .json({ message: "Pembuatan reimburse berhasil", data: newReimburse });
