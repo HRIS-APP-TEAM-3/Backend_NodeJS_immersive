@@ -31,10 +31,9 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
           cd Backend_NodeJS_immersive/
-          ls -la
           git pull
           npm i
-          npm run start-dev
+          npm run start-prod
           EOF
 
         env:
