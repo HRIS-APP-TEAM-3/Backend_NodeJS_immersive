@@ -8,6 +8,9 @@ const leaveSchema = mongoose.Schema(
     },
     leaves: [
       {
+        index: {
+          type: Number, // Add an index field to the reimbursement object
+        },
         start_date: {
           type: Date,
           required: true,
@@ -43,6 +46,15 @@ const leaveSchema = mongoose.Schema(
     },
   }
 );
+
+// Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
+leaveSchema.pre("save", function (next) {
+  const leave = this.leaves[this.leaves.length - 1];
+  if (leave) {
+    leave.index = this.leaves.length;
+  }
+  next();
+});
 
 const Leave = mongoose.model("Leave", leaveSchema);
 
