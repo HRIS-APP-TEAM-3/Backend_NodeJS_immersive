@@ -30,11 +30,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            whoami
             cd Backend_NodeJS_immersive/
-            ls -al
-            git pull
-            npm run start-prod
+            git pull origin main
+            pm2 restart hris-api
 
       # - name: SSH into Server
       #   run: |
