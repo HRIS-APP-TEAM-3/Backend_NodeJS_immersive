@@ -39,6 +39,7 @@ jobs:
 
       - name: SSH into Server
         run: |
+          cat ~/.ssh/id_rsa
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com
           cd Backend_NodeJS_immersive/
           git pull
