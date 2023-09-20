@@ -22,6 +22,14 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Install pm2, npm, nvm
+        run: |
+          npm install -g pm2
+          nvm install --lts
+          nvm use --lts
+          echo "this is inside the runner"
+          pwd
+
       - name: SSH into Server
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -31,9 +39,9 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd Backend_NodeJS_immersive/
-            npm install -g pm2
             npm i
             git pull origin main
+            echo "inside the ssh"
             pm2 stop hris-api
             pm2 del hris-api
             pm2 start npm --name "notes-api" -- run "start-prod"
