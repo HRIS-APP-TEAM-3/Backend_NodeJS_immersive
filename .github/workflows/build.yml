@@ -6,7 +6,7 @@ on:
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,15 +21,6 @@ jobs:
           ssh-keyscan -t rsa ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Install pm2, npm, nvm
-        run: |
-          npm install -g pm2
-          . $HOME/.nvm/nvm.sh
-          nvm install --lts
-          nvm use --lts
-          echo "this is inside the runner"
-          pwd
 
       - name: SSH into Server
         uses: appleboy/ssh-action@v1.0.0
