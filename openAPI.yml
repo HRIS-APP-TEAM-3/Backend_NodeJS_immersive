@@ -1,12 +1,17 @@
 openapi: 3.0.2
 info:
-  title: API Title
+  title: HRIS API
   version: "1.0"
 servers:
-  - url: https://api.server.test/v1
+  - url: https://adul.hatler.art/v1
+tags:
+  - name: Reimburse
+  - name: Leave
 paths:
   /reimburse:
     get:
+      tags:
+        - "Reimburse"
       summary: Get all reimbursements
       description: Retrieve a list of reimbursements for the authenticated user.
       responses:
@@ -48,6 +53,8 @@ paths:
         "500":
           description: Internal server error
     post:
+      tags:
+        - "Reimburse"
       summary: Create a new reimbursement
       description: Create a new reimbursement for the authenticated user.
       requestBody:
@@ -56,16 +63,14 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Reimbursement" # Reference to your schema
-            example: 
-              user_id: "4"
-              reimbursements:
-                - benefit_name: "Donasi Kamp Adul Hatler"
-                  notes: "Belajar kelas seni agar berhasil"
-                  lead_approval: true
-                  hr_approval: true
-                  request_amount: 200000.00
-                  paid_amount: 0.00
-                  file_name: "medical_receipt.pdf"
+            example:
+              benefit_name: "Donasi Kamp Adul Hatler"
+              notes: "Belajar kelas seni agar berhasil"
+              lead_approval: true
+              hr_approval: true
+              request_amount: 200000.00
+              paid_amount: 0.00
+              file_name: "medical_receipt.pdf"
       responses:
         "201":
           description: Successful creation
@@ -82,7 +87,7 @@ paths:
               example:
                 message: "Reimbursement created successfully"
                 data:
-                  user_id: "3"
+                  user_id: "4"
                   reimbursements:
                     - benefit_name: "Biaya Tank"
                       notes: "Panzer"
@@ -93,6 +98,126 @@ paths:
                       file_name: "medical_receipt.pdf"
         "400":
           description: Bad request
+        "500":
+          description: Internal server error
+  /reimbursement/{reimburseIndex}:
+    get:
+      tags:
+        - "Reimburse"
+      summary: Get a specific reimbursement
+      description: Retrieve a specific reimbursement for the authenticated user.
+      parameters:
+        - in: path
+          name: reimburseIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the reimbursement to retrieve.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reimbursement"
+              example:
+                user_id: "4"
+                reimbursements:
+                  - benefit_name: "Biaya Tank"
+                    notes: "Panzer"
+                    lead_approval: true
+                    hr_approval: true
+                    request_amount: 200000.00
+                    paid_amount: 0.00
+                    file_name: "medical_receipt.pdf"
+        "404":
+          description: Reimbursement not found
+        "500":
+          description: Internal server error
+
+    put:
+      tags:
+        - "Reimburse"
+      summary: Update a specific reimbursement
+      description: Update a specific reimbursement for the authenticated user.
+      parameters:
+        - in: path
+          name: reimburseIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the reimbursement to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reimbursement"
+            example:
+              benefit_name: "Kalah Perang"
+              notes: "Tidak Jadi Menguasai Eropa"
+              lead_approval: false
+              hr_approval: false
+              request_amount: 250000.00
+              paid_amount: 250000.00
+              file_name: "updated_receipt.pdf"
+      responses:
+        "200":
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Reimbursement created successfully"
+                data:
+                  user_id: "4"
+                  reimbursements:
+                    - benefit_name: "Berhasil Menang"
+                      notes: "Berhasil Menguasai Kelas Seni"
+                      lead_approval: false
+                      hr_approval: false
+                      request_amount: 250000.00
+                      paid_amount: 250000.00
+                      file_name: "updated_receipt.pdf"
+        "404":
+          description: Reimbursement not found
+        "500":
+          description: Internal server error
+
+    delete:
+      tags:
+        - "Reimburse"
+      summary: Delete a specific reimbursement
+      description: Delete a specific reimbursement for the authenticated user.
+      parameters:
+        - in: path
+          name: reimburseIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the reimbursement to delete.
+      responses:
+        "200":
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Berhasil Menghapus Reimburse"
+                data:
+                  user_id: "4"
+                  reimbursements:
+                    - benefit_name: "Biaya Tank"
+                      notes: "Panzer"
+                      lead_approval: true
+                      hr_approval: true
+                      request_amount: 200000.00
+                      paid_amount: 0.00
+                      file_name: "medical_receipt.pdf"
+        "404":
+          description: Reimbursement not found
         "500":
           description: Internal server error
 components:
