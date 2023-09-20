@@ -15,6 +15,7 @@ app.use("/reimbursement", reimburseRoutes);
 app.use("/leave", leaveRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+const HOST = process.env.NODE_ENV !== "production" ? "localhost" : "0.0.0.0";
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on http://${HOST}:${PORT}`);
 });
