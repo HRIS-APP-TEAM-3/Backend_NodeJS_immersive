@@ -9,6 +9,9 @@ const reimburseSchema = new mongoose.Schema(
     },
     reimbursements: [
       {
+        index: {
+          type: Number, // Add an index field to the reimbursement object
+        },
         benefit_name: {
           type: String,
         },
@@ -48,6 +51,15 @@ const reimburseSchema = new mongoose.Schema(
     },
   }
 );
+
+// Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
+reimburseSchema.pre("save", function (next) {
+  const reimbursement = this.reimbursements[this.reimbursements.length - 1];
+  if (reimbursement) {
+    reimbursement.index = this.reimbursements.length;
+  }
+  next();
+});
 
 const Reimburse = mongoose.model("Reimburse", reimburseSchema);
 
