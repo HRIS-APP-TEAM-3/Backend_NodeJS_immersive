@@ -30,8 +30,9 @@ jobs:
       - name: SSH into Server
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
-          ls
-          pwd
+          cd Backend_NodeJS_immersive
+          git pull
+          npm run start-prod
           EOF
 
         env:
