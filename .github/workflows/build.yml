@@ -27,12 +27,6 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Debug SSH Files
-        run: |
-          ls -al ~/.ssh
-          cat ~/.ssh/id_rsa
-          cat ~/.ssh/known_hosts
-
       - name: SSH into Server
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com
