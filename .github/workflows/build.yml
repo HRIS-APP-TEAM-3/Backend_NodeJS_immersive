@@ -31,9 +31,12 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd Backend_NodeJS_immersive/
+            npm install -g pm2
             npm i
             git pull origin main
-            pm2 restart hris-api
+            pm2 stop hris-api
+            pm2 del hris-api
+            pm2 start npm --name "notes-api" -- run "start-prod"
 
       # - name: SSH into Server
       #   run: |
