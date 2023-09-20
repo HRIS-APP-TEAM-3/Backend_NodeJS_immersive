@@ -33,7 +33,7 @@ jobs:
           cd Backend_NodeJS_immersive/
           ls -la
           git pull
-          nodemon app.js
+          npm run start-dev
           EOF
 
         env:
