@@ -30,7 +30,8 @@ jobs:
       - name: SSH into Server
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
-          cd Backend_NodeJS_immersive
+          cd Backend_NodeJS_immersive/
+          ls -la
           git pull
           npm run start-prod
           EOF
