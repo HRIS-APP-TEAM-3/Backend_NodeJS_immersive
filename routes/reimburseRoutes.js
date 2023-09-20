@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const reimburseController = require("../controllers/reimburseController");
-const getUserIdMiddleware = require("../middleware/getUserIdMiddleware.js");
+const getUserIdMiddleware = require("../middlewares/getUserIdMiddleware.js");
 
 router.use(getUserIdMiddleware("verysectretkey007"));
 
