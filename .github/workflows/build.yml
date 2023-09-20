@@ -43,6 +43,7 @@ jobs:
             npm i
             git pull origin main
             echo "inside the ssh"
+            npm install -g pm2
             pm2 stop hris-api
             pm2 del hris-api
             pm2 start npm --name "notes-api" -- run "start-prod"
