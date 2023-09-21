@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const Connection = require("./config/db");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const reimburseRoutes = require("./routes/reimburseRoutes");
@@ -10,6 +11,7 @@ app.use(express.json());
 
 Connection();
 
+app.use(cors());
 app.use("/dashboard", dashboardRoutes);
 app.use("/reimbursement", reimburseRoutes);
 app.use("/leave", leaveRoutes);

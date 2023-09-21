@@ -66,7 +66,6 @@ exports.getReimburseById = async (req, res) => {
 
 exports.updateReimburse = async (req, res) => {
   const { reimburseIndex } = req.params;
-  const updateFields = {};
 
   // Menentukan  array yang berisi field yang akan diperbarui.
   const allowedFields = [
@@ -86,6 +85,9 @@ exports.updateReimburse = async (req, res) => {
     }
   });
 
+  // Update the updated_at field in the main document
+  updateFields["updated_at"] = Date.now();
+
   try {
     const reimburse = await Reimburse.findOneAndUpdate(
       {
@@ -101,14 +103,16 @@ exports.updateReimburse = async (req, res) => {
       }
     );
 
-    console.log(reimburse);
     if (!reimburse) {
       return res.status(404).json({ message: "Reimburse tidak ditemukan!" });
     }
 
+    // Extract and return only the updated reimbursement data
+    const updatedReimbursement = reimburse.reimbursements[0];
+
     res.status(200).json({
       message: "Reimburse berhasil diperbarui!",
-      data: reimburse.reimbursements,
+      data: updatedReimbursement,
     });
   } catch (error) {
     console.error(error);
