@@ -40,6 +40,14 @@ const reimburseSchema = new mongoose.Schema(
         file_name: {
           type: String,
         },
+        created_at: {
+          type: Date, // Add created_at field to track creation time
+          default: Date.now,
+        },
+        updated_at: {
+          type: Date, // Add updated_at field to track update time
+          default: Date.now,
+        },
       },
     ],
   },
@@ -54,10 +62,10 @@ const reimburseSchema = new mongoose.Schema(
 
 // Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
 reimburseSchema.pre("save", function (next) {
-  const reimbursement = this.reimbursements[this.reimbursements.length - 1];
-  if (reimbursement) {
-    reimbursement.index = this.reimbursements.length;
-  }
+  const reimbursements = this.reimbursements;
+  reimbursements.forEach((reimbursement, index) => {
+    reimbursement.index = index;
+  });
   next();
 });
 
