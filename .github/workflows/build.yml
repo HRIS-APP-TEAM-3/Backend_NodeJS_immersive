@@ -25,6 +25,9 @@ jobs:
       - name: SSH into Server
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ap-southeast-1 # Replace with your AWS region
           cd Backend_NodeJS_immersive/
           git pull
           docker stop hris-container
@@ -32,6 +35,5 @@ jobs:
           docker rmi hris-api
           docker build -t hris-api .
           docker run -dp 8000:8000 --env-file .env --name hris-container hris-api
+          aws ec2 authorize-security-group-ingress --group-id sg-05aa047839cc1561b --protocol tcp --port 443 --cidr 0.0.0.0/0
           EOF
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
