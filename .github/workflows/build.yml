@@ -6,46 +6,29 @@ on:
 jobs:
   if_merged:
     if: github.event.pull_request.merged == true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Create SSH directory
+        run: mkdir -p ~/.ssh
 
       - name: Setup SSH Key
         run: |
-          mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 400 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # - name: SSH into Server
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.HOST }}
-      #     username: ${{ secrets.USERNAME }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     port: ${{ secrets.PORT }}
-      #     script: |
-      #       cd Backend_NodeJS_immersive/
-      #       npm i
-      #       git pull origin main
-      #       echo "inside the ssh"
-      #       npm install -g pm2
-      #       pm2 stop hris-api
-      #       pm2 del hris-api
-      #       pm2 start npm --name "notes-api" -- run "start-prod"
-
       - name: SSH into Server
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com
-          ls -la
+          ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
           cd Backend_NodeJS_immersive/
           git pull
-          npm install -g pm2
-          pm2 stop hris-api
-          pm2 del hris-api
-          pm2 start npm --name "notes-api" -- run "start-prod"
+          npm i
+          npm run start-prod
+          EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
