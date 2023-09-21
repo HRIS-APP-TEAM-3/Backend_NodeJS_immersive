@@ -4,7 +4,7 @@ exports.getAllLeave = async (req, res) => {
   try {
     const leaves = await Leave.findOne({ user_id: req.user_id });
     if (leaves.leaves.length === 0) {
-      res.status(200).json({
+      res.status(404).json({
         message: "Data cuti masih kosong.",
         data: leaves.leaves,
       });

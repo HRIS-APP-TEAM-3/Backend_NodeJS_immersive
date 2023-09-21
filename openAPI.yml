@@ -220,6 +220,309 @@ paths:
           description: Reimbursement not found
         "500":
           description: Internal server error
+  /leave:
+    get:
+      tags:
+        - "Leave"
+      summary: Get all leaves
+      description: Retrieve a list of leaves for the authenticated user.
+      responses:
+        "200":
+          description: Successful response when leaves are found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Leave"
+              example:
+                message: "Data cuti ditemukan."
+                data:
+                  - user_id: "4"
+                    leaves:
+                      - start_date: "2023-09-15"
+                        end_date: "2023-09-18"
+                        policy_code: "XYZ123"
+                        notes: "Annual vacation"
+                        file_name: "leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: false
+                      - start_date: "2023-10-10"
+                        end_date: "2023-10-15"
+                        policy_code: "ABC789"
+                        notes: "Sick leave"
+                        file_name: "sick_leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: true
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Data cuti belum ada"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Ada error saat melakukan proses"
+        "404":
+          description: Leaves not found when leaves are empty
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Data cuti masih kosong."
+
+    post:
+      tags:
+        - "Leave"
+      summary: Create a new leave
+      description: Create a new leave for the authenticated user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Leave"
+            example:
+              start_date: "2023-09-20"
+              end_date: "2023-09-25"
+              policy_code: "DEF456"
+              notes: "Personal leave"
+              file_name: "personal_leave_request.pdf"
+              lead_approval: true
+              hr_approval: true
+      responses:
+        "201":
+          description: Successful creation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    $ref: "#/components/schemas/Leave"
+              example:
+                message: "Leave created successfully"
+                data:
+                  user_id: "4"
+                  leaves:
+                    - start_date: "2023-09-20"
+                      end_date: "2023-09-25"
+                      policy_code: "DEF456"
+                      notes: "Personal leave"
+                      file_name: "personal_leave_request.pdf"
+                      lead_approval: true
+                      hr_approval: true
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Terdapat masalah"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Ada error saat melakukan proses"
+  /leave/{leaveIndex}:
+    get:
+      tags:
+        - "Leave"
+      summary: Get a specific leave
+      description: Retrieve a specific leave for the authenticated user by its index.
+      parameters:
+        - in: path
+          name: leaveIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the leave to retrieve.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+              example:
+                message: "Leave ditemukan!"
+                data:
+                  - start_date: "2023-09-20"
+                    end_date: "2023-09-25"
+                    policy_code: "DEF456"
+                    notes: "Personal matter"
+                    file_name: "personal_leave_request.pdf"
+                    lead_approval: true
+                    hr_approval: true
+        "404":
+          description: Leave not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Leave tidak ditemukan!"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Internal Server Error"
+
+    put:
+      tags:
+        - "Leave"
+      summary: Update a specific leave
+      description: Update a specific leave for the authenticated user by its index.
+      parameters:
+        - in: path
+          name: leaveIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the leave to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Leave"
+            example:
+              start_date: "2023-09-22"
+              end_date: "2023-09-27"
+              policy_code: "DEF456"
+              notes: "Updated personal leave"
+              file_name: "updated_personal_leave.pdf"
+              lead_approval: true
+              hr_approval: false
+      responses:
+        "200":
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+              example:
+                user_id: "4"
+                leaves:
+                  - start_date: "2023-09-22"
+                    end_date: "2023-09-27"
+                    policy_code: "DEF456"
+                    notes: "Updated personal leave"
+                    file_name: "updated_personal_leave.pdf"
+                    lead_approval: true
+                    hr_approval: false
+        "404":
+          description: Leave not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Leave tidak ditemukan!"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the error.
+              example:
+                message: "Internal Server Error"
+
+    delete:
+      tags:
+        - "Leave"
+      summary: Delete a specific leave
+      description: Delete a specific leave for the authenticated user by its index.
+      parameters:
+        - in: path
+          name: leaveIndex
+          required: true
+          schema:
+            type: integer
+          description: The index of the leave to delete.
+      responses:
+        "200":
+          description: Successful deletion
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Leave"
+              example:
+                message: "Leave berhasil dihapus"
+                data:
+                  user_id: "4"
+                  leaves:
+                    - start_date: "2023-09-20"
+                      end_date: "2023-09-25"
+                      policy_code: "DEF456"
+                      notes: "Personal leave"
+                      file_name: "personal_leave_request.pdf"
+                      lead_approval: true
+                      hr_approval: false
+        "404":
+          description: Leave not found
+        "500":
+          description: Internal server error
 components:
   schemas:
     Reimbursement:
@@ -246,3 +549,27 @@ components:
                 type: number
               file_name:
                 type: string
+    Leave:
+      type: object
+      properties:
+        user_id:
+          type: string
+        leaves:
+          type: array
+          items:
+            type: object
+            properties:
+              start_date:
+                type: string
+              end_date:
+                type: string
+              policy_code:
+                type: string
+              notes:
+                type: string
+              file_name:
+                type: string
+              lead_approval:
+                type: boolean
+              hr_approval:
+                type: boolean
