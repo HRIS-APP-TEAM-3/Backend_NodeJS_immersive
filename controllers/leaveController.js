@@ -76,13 +76,13 @@ exports.updateLeave = async (req, res) => {
 
   // Menentukan  array yang berisi field yang akan diperbarui.
   const allowedFields = [
-    "benefit_name",
+    "start_date",
+    "end_date",
+    "policy_code",
     "notes",
+    "file_name",
     "lead_approval",
     "hr_approval",
-    "request_amount",
-    "paid_amount",
-    "file_name",
   ];
 
   // Melakukan perulangan elemen yang akan ditambahkan dan menambahkannya ke objek updateFields jika ada dalam request body.
