@@ -30,6 +30,7 @@ jobs:
           aws configure set region ap-southeast-1 # Replace with your AWS region
           cd Backend_NodeJS_immersive/
           git pull
+          nvm use --lts
           docker stop hris-container
           docker rm hris-container
           docker rmi hris-api
