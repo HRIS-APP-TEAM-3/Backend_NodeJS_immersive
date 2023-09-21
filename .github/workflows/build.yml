@@ -27,8 +27,11 @@ jobs:
           ssh -i ~/.ssh/id_rsa ubuntu@ec2-54-255-46-74.ap-southeast-1.compute.amazonaws.com << EOF
           cd Backend_NodeJS_immersive/
           git pull
-          npm i
-          npm run start-prod
+          docker stop hris-container
+          docker rm hris-container
+          docker rmi hris-api
+          docker build -t hris-api .
+          docker run -dp 8000:8000 --env-file .env --name hris-container hris-api
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
