@@ -100,6 +100,140 @@ paths:
           description: Bad request
         "500":
           description: Internal server error
+  /reimburse/alluser:
+    get:
+      tags:
+        - "Reimburse"
+      summary: Get all user reimbursements
+      description: Retrieve a list of all user reimbursements.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Data semua user ditemukan."
+                data:
+                  - _id: ObjectId("5fbeb970eadb3457d49a27a4")
+                    user_id:
+                      - benefit_name: Biaya Berobat
+                        notes: Resep Dokter
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 200000.00
+                        paid_amount: 0.00
+                        file_name: medical_receipt.pdf
+                      - benefit_name: Biaya Transport
+                        notes: Perjalanan Dinas
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 350000.00
+                        paid_amount: 350000.00
+                        file_name: travel_receipt.pdf
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+
+  /reimburse/approved:
+    get:
+      tags:
+        - "Reimburse"
+      summary: Get approved reimbursements
+      description: Retrieve a list of approved reimbursements.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Data reimburse yang disetujui ditemukan."
+                data:
+                  - _id: ObjectId("5fbeb970eadb3457d49a27a4")
+                    user_id:
+                      - benefit_name: Biaya Berobat
+                        notes: Resep Dokter
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 200000.00
+                        paid_amount: 0.00
+                        file_name: medical_receipt.pdf
+                      - benefit_name: Biaya Transport
+                        notes: Perjalanan Dinas
+                        lead_approval: true
+                        hr_approval: true
+                        request_amount: 350000.00
+                        paid_amount: 350000.00
+                        file_name: travel_receipt.pdf
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+
+  /reimburse/pending:
+    get:
+      tags:
+        - "Reimburse"
+      summary: Get pending reimbursements
+      description: Retrieve a list of pending reimbursements.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Reimbursement"
+              example:
+                message: "Data reimburse yang belum disetujui ditemukan."
+                data:
+                  - _id: ObjectId("5fbeb970eadb3457d49a27a4")
+                    user_id:
+                      - benefit_name: Biaya Berobat
+                        notes: Resep Dokter
+                        lead_approval: true
+                        hr_approval: false
+                        request_amount: 200000.00
+                        paid_amount: 0.00
+                        file_name: medical_receipt.pdf
+                      - benefit_name: Biaya Transport
+                        notes: Perjalanan Dinas
+                        lead_approval: true
+                        hr_approval: false
+                        request_amount: 350000.00
+                        paid_amount: 0.00
+                        file_name: travel_receipt.pdf
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
   /reimbursement/{reimburseIndex}:
     get:
       tags:
@@ -365,6 +499,140 @@ paths:
                     description: A message describing the error.
               example:
                 message: "Ada error saat melakukan proses"
+  /leave/alluser:
+    get:
+      tags:
+        - "Leave"
+      summary: Get all user leaves
+      description: Retrieve a list of all user leaves.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Leave"
+              example:
+                message: "Data semua user ditemukan."
+                data:
+                  - user_id: "4"
+                    leaves:
+                      - start_date: "2023-09-15"
+                        end_date: "2023-09-18"
+                        policy_code: "XYZ123"
+                        notes: "Annual vacation"
+                        file_name: "leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: false
+                      - start_date: "2023-10-10"
+                        end_date: "2023-10-15"
+                        policy_code: "ABC789"
+                        notes: "Sick leave"
+                        file_name: "sick_leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: true
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+
+  /leave/approved:
+    get:
+      tags:
+        - "Leave"
+      summary: Get approved leaves
+      description: Retrieve a list of approved leaves.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Leave"
+              example:
+                message: "Data cuti yang disetujui ditemukan."
+                data:
+                  - user_id: "4"
+                    leaves:
+                      - start_date: "2023-09-15"
+                        end_date: "2023-09-18"
+                        policy_code: "XYZ123"
+                        notes: "Annual vacation"
+                        file_name: "leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: true
+                      - start_date: "2023-10-10"
+                        end_date: "2023-10-15"
+                        policy_code: "ABC789"
+                        notes: "Sick leave"
+                        file_name: "sick_leave_request.pdf"
+                        lead_approval: true
+                        hr_approval: true
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
+
+  /leave/pending:
+    get:
+      tags:
+        - "Leave"
+      summary: Get pending leaves
+      description: Retrieve a list of pending leaves.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message describing the response.
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Leave"
+              example:
+                message: "Data cuti yang belum disetujui ditemukan."
+                data:
+                  - user_id: "4"
+                    leaves:
+                      - start_date: "2023-09-15"
+                        end_date: "2023-09-18"
+                        policy_code: "XYZ123"
+                        notes: "Annual vacation"
+                        file_name: "leave_request.pdf"
+                        lead_approval: false
+                        hr_approval: false
+                      - start_date: "2023-10-10"
+                        end_date: "2023-10-15"
+                        policy_code: "ABC789"
+                        notes: "Sick leave"
+                        file_name: "sick_leave_request.pdf"
+                        lead_approval: false
+                        hr_approval: false
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error
   /leave/{leaveIndex}:
     get:
       tags:
