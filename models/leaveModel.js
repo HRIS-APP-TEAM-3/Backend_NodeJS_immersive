@@ -6,10 +6,13 @@ const leaveSchema = mongoose.Schema(
       type: String,
       unique: true,
     },
+    division_id: {
+      type: Number,
+    },
     leaves: [
       {
         index: {
-          type: Number, // Add an index field to the reimbursement object
+          type: Number, // Add an index field to the leave object
         },
         start_date: {
           type: Date,
@@ -35,6 +38,14 @@ const leaveSchema = mongoose.Schema(
         hr_approval: {
           type: Boolean,
         },
+        created_at: {
+          type: Date, // Add created_at field to track creation time
+          default: Date.now,
+        },
+        updated_at: {
+          type: Date, // Add updated_at field to track update time
+          default: Date.now,
+        },
       },
     ],
   },
@@ -49,10 +60,10 @@ const leaveSchema = mongoose.Schema(
 
 // Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
 leaveSchema.pre("save", function (next) {
-  const leave = this.leaves[this.leaves.length - 1];
-  if (leave) {
-    leave.index = this.leaves.length;
-  }
+  const leaves = this.leaves;
+  leaves.forEach((leave, index) => {
+    leave.index = index;
+  });
   next();
 });
 
