@@ -15,6 +15,9 @@ const reimburseSchema = new mongoose.Schema(
         index: {
           type: Number, // Add an index field to the reimbursement object
         },
+        reimburse_name: {
+          type: String,
+        },
         benefit_name: {
           type: String,
         },

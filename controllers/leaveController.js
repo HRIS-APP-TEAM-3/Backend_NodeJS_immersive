@@ -1,5 +1,85 @@
 const Leave = require("../models/leaveModel");
 
+// ini fungsi untuk bisa melihat semua data user dan semua data leave user tersebut
+exports.getAllUserLeave = async (req, res) => {
+  try {
+    const allLeaves = await Leave.find();
+    if (allLeaves) {
+      res.status(200).json({
+        message: "Data semua user ditemukan.",
+        data: allLeaves,
+      });
+    } else {
+      res.status(400).json({ message: "Data leave belum ada" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Ada error saat melakukan proses" });
+  }
+};
+
+exports.getApprovedLeave = async (req, res) => {
+  let approvedLeaves;
+  try {
+    if (req.user.divisionId !== 2) {
+      approvedLeaves = await Leave.find({
+        division_id: req.user.divisionId,
+        "leaves.hr_approval": true,
+        "leaves.lead_approval": true,
+      });
+    } else {
+      approvedLeaves = await Leave.find({
+        "leaves.hr_approval": true,
+        "leaves.lead_approval": true,
+      });
+    }
+
+    if (approvedLeaves.length > 0) {
+      res.status(200).json({
+        message: "Data leave yang disetujui ditemukan.",
+        data: approvedLeaves,
+      });
+    } else {
+      res.status(400).json({ message: "Belum ada leave yang disetujui" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Ada error saat melakukan proses" });
+  }
+};
+
+exports.getPendingLeave = async (req, res) => {
+  let pendingLeaves;
+  try {
+    if (req.user.divisionId !== 2) {
+      pendingLeaves = await Leave.find({
+        division_id: req.user.divisionId,
+        $or: [
+          { "leaves.hr_approval": false },
+          { "leaves.lead_approval": false },
+        ],
+      });
+    } else {
+      pendingLeaves = await Leave.find({
+        $or: [
+          { "leaves.hr_approval": false },
+          { "leaves.lead_approval": false },
+        ],
+      });
+    }
+
+    if (pendingLeaves.length > 0) {
+      res.status(200).json({
+        message: "Data leave yang belum disetujui ditemukan.",
+        data: pendingLeaves,
+      });
+    } else {
+      res.status(400).json({ message: "Semua leave belum disetujui" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Ada error saat melakukan proses" });
+  }
+};
+
 exports.getAllLeave = async (req, res) => {
   const leaves = await Leave.findOne({ user_id: req.user_id });
   try {
@@ -32,7 +112,10 @@ exports.addLeave = async (req, res) => {
         data: existingLeave,
       });
     } else {
-      const newLeave = await Leave.create({ user_id: req.user_id });
+      const newLeave = await Leave.create({
+        user_id: req.user_id,
+        division_id: req.user.divisionId,
+      });
       newLeave.leaves.push(req.body);
       await newLeave.save();
       res
@@ -104,7 +187,6 @@ exports.updateLeave = async (req, res) => {
       }
     );
 
-    console.log(leave);
     if (!leave) {
       return res.status(404).json({ message: "Leave tidak ditemukan!" });
     }

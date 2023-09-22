@@ -153,6 +153,7 @@ exports.updateReimburse = async (req, res) => {
 
   // Menentukan  array yang berisi field yang akan diperbarui.
   const allowedFields = [
+    "reimburse_name",
     "benefit_name",
     "notes",
     "lead_approval",

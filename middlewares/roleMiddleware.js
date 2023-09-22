@@ -24,7 +24,6 @@ function roleMiddleware(requiredRole) {
       }
 
       req.user = decoded;
-      console.log(req.user);
       next();
     });
   };

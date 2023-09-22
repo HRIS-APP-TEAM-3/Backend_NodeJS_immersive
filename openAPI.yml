@@ -34,14 +34,16 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - benefit_name: Biaya Berobat
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
                         hr_approval: true
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - benefit_name: Biaya Transport
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
                         hr_approval: true
@@ -89,7 +91,8 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - benefit_name: "Biaya Tank"
+                    - reimburse_name: Bebas
+                      benefit_name: "Biaya Tank"
                       notes: "Panzer"
                       lead_approval: true
                       hr_approval: true
@@ -126,14 +129,16 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - benefit_name: Biaya Berobat
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
                         hr_approval: true
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - benefit_name: Biaya Transport
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
                         hr_approval: true
@@ -171,14 +176,16 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - benefit_name: Biaya Berobat
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
                         hr_approval: true
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - benefit_name: Biaya Transport
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
                         hr_approval: true
@@ -216,14 +223,16 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - benefit_name: Biaya Berobat
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
                         hr_approval: false
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - benefit_name: Biaya Transport
+                      - reimburse_name: Bebas
+                        benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
                         hr_approval: false
@@ -257,7 +266,8 @@ paths:
               example:
                 user_id: "4"
                 reimbursements:
-                  - benefit_name: "Biaya Tank"
+                  - reimburse_name: Bebas
+                    benefit_name: "Biaya Tank"
                     notes: "Panzer"
                     lead_approval: true
                     hr_approval: true
@@ -307,7 +317,8 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - benefit_name: "Berhasil Menang"
+                    - reimburse_name: Bebas
+                      benefit_name: "Berhasil Menang"
                       notes: "Berhasil Menguasai Kelas Seni"
                       lead_approval: false
                       hr_approval: false
@@ -343,7 +354,8 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - benefit_name: "Biaya Tank"
+                    - reimburse_name: Bebas
+                      benefit_name: "Biaya Tank"
                       notes: "Panzer"
                       lead_approval: true
                       hr_approval: true
