@@ -2,21 +2,17 @@ const Leave = require("../models/leaveModel");
 
 exports.getAllLeave = async (req, res) => {
   try {
-    const leaves = await Leave.findOne({ user_id: req.user_id });
     if (!leaves || leaves.leaves.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "Data cuti masih kosong.",
         data: [],
       });
     }
-    if (leaves) {
-      res.status(200).json({
-        message: "Data cuti ditemukan.",
-        data: leaves.leaves,
-      });
-    } else {
-      res.status(400).json({ message: "Data cuti belum ada" });
-    }
+
+    return res.status(200).json({
+      message: "Data cuti ditemukan.",
+      data: leaves.leaves,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Ada error saat melakukan proses" });
