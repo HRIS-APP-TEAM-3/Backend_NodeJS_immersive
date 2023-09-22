@@ -47,11 +47,11 @@ const reimburseSchema = new mongoose.Schema(
           type: String,
         },
         created_at: {
-          type: Date, // Add created_at field to track creation time
+          type: String, // Add created_at field to track creation time
           default: Date.now,
         },
         updated_at: {
-          type: Date, // Add updated_at field to track update time
+          type: String, // Add updated_at field to track update time
           default: Date.now,
         },
       },
@@ -71,9 +71,21 @@ reimburseSchema.pre("save", function (next) {
   const reimbursements = this.reimbursements;
   reimbursements.forEach((reimbursement, index) => {
     reimbursement.index = index;
+    reimbursement.created_at = formatDate(reimbursement.created_at); // Use formatDate function to set the date
+    reimbursement.updated_at = formatDate(reimbursement.updated_at); // Use formatDate function to set the date
   });
   next();
 });
+
+// Format date to "YYYY-MM-DD"
+function formatDate(date) {
+  if (!date) return ""; // Handle cases where date is not provided
+  const parsedDate = new Date(date);
+  const year = parsedDate.getFullYear();
+  const month = String(parsedDate.getMonth() + 1).padStart(2, "0");
+  const day = String(parsedDate.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 const Reimburse = mongoose.model("Reimburse", reimburseSchema);
 
