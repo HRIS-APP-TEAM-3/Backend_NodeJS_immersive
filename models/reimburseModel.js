@@ -7,6 +7,9 @@ const reimburseSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    division_id: {
+      type: Number,
+    },
     reimbursements: [
       {
         index: {
