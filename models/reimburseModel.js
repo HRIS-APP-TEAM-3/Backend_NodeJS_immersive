@@ -27,9 +27,11 @@ const reimburseSchema = new mongoose.Schema(
         },
         lead_approval: {
           type: Boolean,
+          default: false,
         },
         hr_approval: {
           type: Boolean,
+          default: false,
         },
         request_amount: {
           type: Number,

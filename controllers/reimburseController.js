@@ -102,23 +102,25 @@ exports.addReimburse = async (req, res) => {
   try {
     const existingReimburse = await Reimburse.findOne({ user_id: req.user_id });
     if (existingReimburse) {
-      // Jika sudah pernah mebuat, maka akan menambahkan data reimburse ke data user
-      existingReimburse.reimbursements.push(req.body);
+      // Jika sudah pernah membuat, maka akan menambahkan data reimburse ke data user
+      const newReimburseData = { ...req.body, file_name: req.file.filename }; // Add the file_name property
+      existingReimburse.reimbursements.push(newReimburseData);
       await existingReimburse.save();
       res.status(201).json({
         message: "Penambahan reimburse berhasil",
         data: existingReimburse,
       });
     } else {
-      const newReimburse = await Reimburse.create({
+      const newReimburseData = {
         user_id: req.user_id,
         division_id: req.user.divisionId,
+        reimbursements: [{ ...req.body, file_name: req.file.filename }], // Add the file_name property
+      };
+      const newReimburse = await Reimburse.create(newReimburseData);
+      res.status(201).json({
+        message: "Pembuatan reimburse berhasil",
+        data: newReimburse,
       });
-      newReimburse.reimbursements.push(req.body);
-      await newReimburse.save();
-      res
-        .status(201)
-        .json({ message: "Pembuatan reimburse berhasil", data: newReimburse });
     }
   } catch (error) {
     console.error(error);
