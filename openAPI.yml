@@ -3,10 +3,11 @@ info:
   title: HRIS API
   version: "1.0"
 servers:
-  - url: https://adul.hatler.art/v1
+  - url: https://node.backendlagi.online/
 tags:
   - name: Reimburse
   - name: Leave
+  - name: Key Result
 paths:
   /reimburse:
     get:
@@ -34,7 +35,7 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - reimburse_name: Bebas
+                      - reimburse_name: Kenangan Pahit
                         benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
@@ -42,7 +43,7 @@ paths:
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - reimburse_name: Bebas
+                      - reimburse_name: Deritanya Tiada Akhir
                         benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
@@ -91,7 +92,7 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - reimburse_name: Bebas
+                    - reimburse_name: Beginilah Hidupku
                       benefit_name: "Biaya Tank"
                       notes: "Panzer"
                       lead_approval: true
@@ -129,7 +130,7 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - reimburse_name: Bebas
+                      - reimburse_name: Bujang Lapuk
                         benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
@@ -137,7 +138,7 @@ paths:
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - reimburse_name: Bebas
+                      - reimburse_name: Biaya Nikah Padahal Belum Nikah
                         benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
@@ -176,7 +177,7 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - reimburse_name: Bebas
+                      - reimburse_name: Udah Tua Belum Nikah
                         benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
@@ -184,7 +185,7 @@ paths:
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - reimburse_name: Bebas
+                      - reimburse_name: Mengaku Bujangan Ternyata Duda
                         benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
@@ -223,7 +224,7 @@ paths:
                 data:
                   - _id: ObjectId("5fbeb970eadb3457d49a27a4")
                     user_id:
-                      - reimburse_name: Bebas
+                      - reimburse_name: Terapi Mental Illnes
                         benefit_name: Biaya Berobat
                         notes: Resep Dokter
                         lead_approval: true
@@ -231,7 +232,7 @@ paths:
                         request_amount: 200000.00
                         paid_amount: 0.00
                         file_name: medical_receipt.pdf
-                      - reimburse_name: Bebas
+                      - reimburse_name: Kalau Nikah Harus Punya 1M
                         benefit_name: Biaya Transport
                         notes: Perjalanan Dinas
                         lead_approval: true
@@ -266,7 +267,7 @@ paths:
               example:
                 user_id: "4"
                 reimbursements:
-                  - reimburse_name: Bebas
+                  - reimburse_name: Ingin Menguasai Eropa
                     benefit_name: "Biaya Tank"
                     notes: "Panzer"
                     lead_approval: true
@@ -317,7 +318,7 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - reimburse_name: Bebas
+                    - reimburse_name: Eropa Sudah Dikuasai
                       benefit_name: "Berhasil Menang"
                       notes: "Berhasil Menguasai Kelas Seni"
                       lead_approval: false
@@ -354,7 +355,7 @@ paths:
                 data:
                   user_id: "4"
                   reimbursements:
-                    - reimburse_name: Bebas
+                    - reimburse_name: Menambah Kekuatan Tempur
                       benefit_name: "Biaya Tank"
                       notes: "Panzer"
                       lead_approval: true
@@ -457,7 +458,7 @@ paths:
             example:
               start_date: "2023-09-20"
               end_date: "2023-09-25"
-              policy_code: "DEF456"
+              policy_code: "CEMRG"
               notes: "Personal leave"
               file_name: "personal_leave_request.pdf"
               lead_approval: true
@@ -482,7 +483,7 @@ paths:
                   leaves:
                     - start_date: "2023-09-20"
                       end_date: "2023-09-25"
-                      policy_code: "DEF456"
+                      policy_code: "CEMRG"
                       notes: "Personal leave"
                       file_name: "personal_leave_request.pdf"
                       lead_approval: true
@@ -670,7 +671,7 @@ paths:
                 data:
                   - start_date: "2023-09-20"
                     end_date: "2023-09-25"
-                    policy_code: "DEF456"
+                    policy_code: "CTHN"
                     notes: "Personal matter"
                     file_name: "personal_leave_request.pdf"
                     lead_approval: true
@@ -721,7 +722,7 @@ paths:
             example:
               start_date: "2023-09-22"
               end_date: "2023-09-27"
-              policy_code: "DEF456"
+              policy_code: "CTHN"
               notes: "Updated personal leave"
               file_name: "updated_personal_leave.pdf"
               lead_approval: true
@@ -738,7 +739,7 @@ paths:
                 leaves:
                   - start_date: "2023-09-22"
                     end_date: "2023-09-27"
-                    policy_code: "DEF456"
+                    policy_code: "CEMRG"
                     notes: "Updated personal leave"
                     file_name: "updated_personal_leave.pdf"
                     lead_approval: true
@@ -794,7 +795,7 @@ paths:
                   leaves:
                     - start_date: "2023-09-20"
                       end_date: "2023-09-25"
-                      policy_code: "DEF456"
+                      policy_code: "CTHN"
                       notes: "Personal leave"
                       file_name: "personal_leave_request.pdf"
                       lead_approval: true
@@ -803,6 +804,195 @@ paths:
           description: Leave not found
         "500":
           description: Internal server error
+  /keyresult:
+    get:
+      tags:
+        - "Key Result"
+      summary: Get all Key Results
+      description: Retrieve a list of all Key Results.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                message: Data semua user ditemukan.
+                data: [KeyResultObject]
+        "404":
+          description: No Key Results found
+          content:
+            application/json:
+              example:
+                message: Data keyResult belum ada
+    post:
+      tags:
+        - "Key Result"
+      summary: Create a new Key Result
+      description: Create a new Key Result.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyResult"
+      responses:
+        "201":
+          description: Key Result created successfully
+          content:
+            application/json:
+              example:
+                message: Pembuatan Key Result berhasil
+                data: KeyResultObject
+  /keyresults/alluser:
+    get:
+      summary: Get all Key Results for Users
+      description: Retrieve a list of all Key Results for Users.
+      tags: # Add the "Key Result" tag to this operation
+        - Key Result
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                message: Data semua user ditemukan.
+                data: [KeyResultObject]
+        "404":
+          description: No Key Results found
+          content:
+            application/json:
+              example:
+                message: Data keyResult belum ada
+
+  /keyresults/achieved:
+    get:
+      summary: Get Achieved Key Results
+      description: Retrieve a list of achieved Key Results.
+      tags: # Add the "Key Result" tag to this operation
+        - Key Result
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                message: Data keyResult yang disetujui ditemukan.
+                data: [AchievedKeyResultObject]
+        "404":
+          description: No achieved Key Results found
+          content:
+            application/json:
+              example:
+                message: Belum ada keyResult yang disetujui
+
+  /keyresults/ongoing:
+    get:
+      summary: Get Ongoing Key Results
+      description: Retrieve a list of ongoing Key Results.
+      tags: # Add the "Key Result" tag to this operation
+        - Key Result
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                message: Data keyResult yang belum disetujui ditemukan.
+                data: [OngoingKeyResultObject]
+        "404":
+          description: No ongoing Key Results found
+          content:
+            application/json:
+              example:
+                message: Semua keyResult belum disetujui
+  /keyresult/{keyResultIndex}:
+    get:
+      tags:
+        - "Key Result"
+      summary: Get a Key Result by ID
+      description: Retrieve a Key Result by its index.
+      parameters:
+        - in: path
+          name: keyResultIndex
+          required: true
+          description: Index of the Key Result to retrieve
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              example:
+                message: Progress ditemukan!
+                data: KeyResultObject
+        "404":
+          description: Key Result not found
+          content:
+            application/json:
+              example:
+                message: Progress tidak ditemukan!
+    put:
+      tags:
+        - "Key Result"
+      summary: Update a Key Result by ID
+      description: Update a Key Result by its index.
+      parameters:
+        - in: path
+          name: keyResultIndex
+          required: true
+          description: Index of the Key Result to update
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/KeyResult"
+      responses:
+        "200":
+          description: Key Result updated successfully
+          content:
+            application/json:
+              example:
+                message: Key berhasil diperbarui!
+                data: KeyResultObject
+        "404":
+          description: Key Result not found
+          content:
+            application/json:
+              example:
+                message: Key tidak ditemukan!
+    delete:
+      tags:
+        - "Key Result"
+      summary: Delete a Key Result by ID
+      description: Delete a Key Result by its index.
+      parameters:
+        - in: path
+          name: keyResultIndex
+          required: true
+          description: Index of the Key Result to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Key Result deleted successfully
+          content:
+            application/json:
+              example:
+                message: Key berhasil dihapus!
+                data: KeyResultObject
+        "404":
+          description: Key Result not found
+          content:
+            application/json:
+              example:
+                message: Key tidak ditemukan!
 components:
   schemas:
     Reimbursement:
@@ -853,3 +1043,34 @@ components:
                 type: boolean
               hr_approval:
                 type: boolean
+    KeyResult:
+      type: object
+      properties:
+        name:
+          type: string
+        manager_id:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        progresses:
+          type: array
+          items:
+            $ref: "#/components/schemas/KeyResultProgress"
+
+    KeyResultProgress:
+      type: object
+      properties:
+        employee_id:
+          type: string
+        name:
+          type: string
+        progress:
+          type: number
+          minimum: 0
+          maximum: 100
+        manager_approval:
+          type: boolean

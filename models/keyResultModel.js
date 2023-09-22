@@ -1,51 +1,30 @@
 const mongoose = require("mongoose");
 
-const leaveSchema = mongoose.Schema(
+const keyResultSchema = mongoose.Schema(
   {
-    user_id: {
+    name: {
       type: String,
-      unique: true,
     },
-    division_id: {
-      type: Number,
+    manager_id: {
+      type: String,
     },
-    leaves: [
+    start_date: {
+      type: String,
+      required: true,
+    },
+    end_date: {
+      type: String,
+      required: true,
+    },
+    progresses: [
       {
-        index: {
-          type: Number, // Add an index field to the leave object
-        },
-        start_date: {
-          type: Date,
-          required: true,
-        },
-        end_date: {
-          type: Date,
-          required: true,
-        },
-        policy_code: {
-          type: String,
-        },
-        notes: {
-          type: String,
-          default: "Tanpa Keterangan",
-        },
-        file_name: {
-          type: String,
-        },
-        lead_approval: {
-          type: Boolean,
-        },
-        hr_approval: {
-          type: Boolean,
-        },
-        created_at: {
-          type: String, // Add created_at field to track creation time
-          default: Date.now,
-        },
-        updated_at: {
-          type: String, // Add updated_at field to track update time
-          default: Date.now,
-        },
+        employee_id: { type: String },
+        name: { type: String },
+        progress: { type: Number, min: 0, max: 100 },
+        manager_approval: { type: Boolean, default: false },
+        index: { type: Number },
+        created_at: { type: String },
+        updated_at: { type: String },
       },
     ],
   },
@@ -59,12 +38,12 @@ const leaveSchema = mongoose.Schema(
 );
 
 // Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
-leaveSchema.pre("save", function (next) {
-  const leaves = this.leaves;
+keyResultSchema.pre("save", function (next) {
+  const progresses = this.progresses;
   const currentDate = new Date(); // Get the current date and time
-  const newItemIndex = leaves.length - 1; // Index of the newly added item
+  const newItemIndex = progresses.length - 1; // Index of the newly added item
   if (newItemIndex >= 0) {
-    const newItem = leaves[newItemIndex];
+    const newItem = progresses[newItemIndex];
     newItem.index = newItemIndex;
     newItem.start_date = formatDate(newItem.start_date); // Use formatDate function to set the date
     newItem.end_date = formatDate(newItem.end_date); // Use formatDate function to set the date
@@ -84,6 +63,6 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-const Leave = mongoose.model("Leave", leaveSchema);
+const KeyResult = mongoose.model("KeyResult", keyResultSchema);
 
-module.exports = Leave;
+module.exports = KeyResult;
