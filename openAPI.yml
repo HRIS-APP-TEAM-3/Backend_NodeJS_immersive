@@ -67,6 +67,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Reimbursement" # Reference to your schema
             example:
+              reimburse_name: "Kapan Saya Nikahnya"
               benefit_name: "Donasi Kamp Adul Hatler"
               notes: "Belajar kelas seni agar berhasil"
               lead_approval: true
@@ -299,6 +300,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Reimbursement"
             example:
+              reimburse_name: "Udah Tua Belum Nikah"
               benefit_name: "Kalah Perang"
               notes: "Tidak Jadi Menguasai Eropa"
               lead_approval: false
