@@ -1,6 +1,7 @@
 const Leave = require("../models/leaveModel");
 
 exports.getAllLeave = async (req, res) => {
+  const leaves = await Leave.findOne({ user_id: req.user_id });
   try {
     if (!leaves || leaves.leaves.length === 0) {
       return res.status(404).json({
