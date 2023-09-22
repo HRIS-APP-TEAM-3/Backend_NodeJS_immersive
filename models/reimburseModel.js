@@ -70,11 +70,13 @@ const reimburseSchema = new mongoose.Schema(
 reimburseSchema.pre("save", function (next) {
   const reimbursements = this.reimbursements;
   const currentDate = new Date(); // Get the current date and time
-  reimbursements.forEach((reimbursement, index) => {
-    reimbursement.index = index;
-    reimbursement.created_at = formatDate(reimbursement.created_at); // Use formatDate function to set the date
-    reimbursement.updated_at = formatDate(currentDate); // Use formatDate function to set the date
-  });
+  const newItemIndex = reimbursements.length - 1; // Index of the newly added item
+  if (newItemIndex >= 0) {
+    const newItem = reimbursements[newItemIndex];
+    newItem.index = newItemIndex;
+    newItem.created_at = formatDate(newItem.created_at); // Use formatDate function to set the date
+    newItem.updated_at = formatDate(currentDate); // Use formatDate function to set the date to the current date
+  }
   next();
 });
 
