@@ -8,4 +8,4 @@ COPY . .
 EXPOSE 8000
 RUN chown -R node /usr/src/app
 USER node
-CMD ["pm2", "start", "npm", "--name", "hris-api", "--", "run", "start-prod"]
+CMD ["npm", "run", "start-prod"]
