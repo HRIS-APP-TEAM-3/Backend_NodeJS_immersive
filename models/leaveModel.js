@@ -34,9 +34,11 @@ const leaveSchema = mongoose.Schema(
         },
         lead_approval: {
           type: Boolean,
+          default: false,
         },
         hr_approval: {
           type: Boolean,
+          default: false,
         },
         created_at: {
           type: String, // Add created_at field to track creation time
