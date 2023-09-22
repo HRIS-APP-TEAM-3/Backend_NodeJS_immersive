@@ -61,11 +61,14 @@ const leaveSchema = mongoose.Schema(
 // Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
 leaveSchema.pre("save", function (next) {
   const leaves = this.leaves;
-  leaves.forEach((leave, index) => {
-    leave.index = index;
-    leave.created_at = formatDate(leave.created_at); // Use formatDate function to set the date
-    leave.updated_at = formatDate(leave.updated_at); // Use formatDate function to set the date
-  });
+  const currentDate = new Date(); // Get the current date and time
+  const newItemIndex = reimbursements.length - 1; // Index of the newly added item
+  if (newItemIndex >= 0) {
+    const newItem = reimbursements[newItemIndex];
+    newItem.index = newItemIndex;
+    newItem.created_at = formatDate(newItem.created_at); // Use formatDate function to set the date
+    newItem.updated_at = formatDate(currentDate); // Use formatDate function to set the date to the current date
+  }
   next();
 });
 

@@ -69,11 +69,14 @@ const reimburseSchema = new mongoose.Schema(
 // Middleware sebelum menyimpan (pre-save) ke dalam array, untuk mengatur indeks berdasarkan panjang array
 reimburseSchema.pre("save", function (next) {
   const reimbursements = this.reimbursements;
-  reimbursements.forEach((reimbursement, index) => {
-    reimbursement.index = index;
-    reimbursement.created_at = formatDate(reimbursement.created_at); // Use formatDate function to set the date
-    reimbursement.updated_at = formatDate(reimbursement.updated_at); // Use formatDate function to set the date
-  });
+  const currentDate = new Date(); // Get the current date and time
+  const newItemIndex = reimbursements.length - 1; // Index of the newly added item
+  if (newItemIndex >= 0) {
+    const newItem = reimbursements[newItemIndex];
+    newItem.index = newItemIndex;
+    newItem.created_at = formatDate(newItem.created_at); // Use formatDate function to set the date
+    newItem.updated_at = formatDate(currentDate); // Use formatDate function to set the date to the current date
+  }
   next();
 });
 
