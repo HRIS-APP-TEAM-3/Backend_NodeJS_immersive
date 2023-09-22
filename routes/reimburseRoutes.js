@@ -12,7 +12,7 @@ const allUser = [1, 2, 3, 4];
 // 4, Employee
 
 // Define the destination folder path
-const destinationFolder = "./uploads";
+const destinationFolder = "./uploads/reimburses";
 
 // Create the destination folder if it doesn't exist
 if (!fs.existsSync(destinationFolder)) {
