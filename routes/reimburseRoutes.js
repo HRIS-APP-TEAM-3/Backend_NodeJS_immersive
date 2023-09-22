@@ -5,6 +5,7 @@ const getUserIdMiddleware = require("../middlewares/getUserIdMiddleware.js");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 const multer = require("multer");
 const fs = require("fs");
+const path = require("path");
 const allUser = [1, 2, 3, 4];
 // 1, Superadmin
 // 2, Admin
@@ -12,7 +13,7 @@ const allUser = [1, 2, 3, 4];
 // 4, Employee
 
 // Define the destination folder path
-const destinationFolder = "./uploads/reimburses";
+const destinationFolder = "./uploads";
 
 // Create the destination folder if it doesn't exist
 if (!fs.existsSync(destinationFolder)) {
@@ -22,6 +23,15 @@ if (!fs.existsSync(destinationFolder)) {
 // Set up storage engine using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // Define the subdirectory (e.g., 'reimburses')
+    const subdirectory = "reimburses";
+    const subdirectoryPath = path.join(destinationFolder, subdirectory);
+
+    // Create the subdirectory if it doesn't exist
+    if (!fs.existsSync(subdirectoryPath)) {
+      fs.mkdirSync(subdirectoryPath);
+    }
+
     cb(null, destinationFolder); // Define the directory where files will be stored
   },
   filename: (req, file, cb) => {
