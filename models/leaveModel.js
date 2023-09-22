@@ -62,9 +62,9 @@ const leaveSchema = mongoose.Schema(
 leaveSchema.pre("save", function (next) {
   const leaves = this.leaves;
   const currentDate = new Date(); // Get the current date and time
-  const newItemIndex = reimbursements.length - 1; // Index of the newly added item
+  const newItemIndex = leaves.length - 1; // Index of the newly added item
   if (newItemIndex >= 0) {
-    const newItem = reimbursements[newItemIndex];
+    const newItem = leaves[newItemIndex];
     newItem.index = newItemIndex;
     newItem.created_at = formatDate(newItem.created_at); // Use formatDate function to set the date
     newItem.updated_at = formatDate(currentDate); // Use formatDate function to set the date to the current date
